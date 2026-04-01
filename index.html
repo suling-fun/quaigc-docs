@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuAIGC Documentation - Human-Style Text Processing Platform</title>
+    <meta name="description" content="去AIGC (QuAIGC) developer documentation. Transform AI-generated content into authentic human-style text. API reference for humanization, style transfer, and naturalness scoring.">
+    <meta name="keywords" content="去AIGC, QuAIGC, human-style text, AI humanization, text naturalization, AIGC removal, quaigc">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif; line-height: 1.6; color: #e2e8f0; background: #0f0f23; }
+        a { color: #818cf8; text-decoration: none; }
+        a:hover { text-decoration: underline; color: #a5b4fc; }
+        .header { background: linear-gradient(135deg, #312e81 0%, #4f46e5 50%, #6366f1 100%); color: #fff; padding: 3rem 1.5rem; }
+        .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.1rem; opacity: 0.9; max-width: 640px; color: #c7d2fe; }
+        .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .badge { display: inline-block; background: rgba(79,70,229,0.2); color: #a5b4fc; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 12px; border: 1px solid rgba(79,70,229,0.4); margin-bottom: 1rem; }
+        h2 { font-size: 1.4rem; margin: 2.5rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid #1e1b4b; color: #f1f5f9; }
+        h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: #e2e8f0; }
+        p, li { font-size: 0.95rem; color: #94a3b8; }
+        ul { padding-left: 1.5rem; margin: 0.5rem 0 1rem; }
+        li { margin-bottom: 0.35rem; }
+        pre { background: #1e1b4b; color: #e2e8f0; padding: 1.2rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; font-size: 0.85rem; line-height: 1.5; border: 1px solid #312e81; }
+        code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
+        .inline-code { background: #1e1b4b; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85rem; color: #a5b4fc; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1rem 0; }
+        .card { border: 1px solid #1e1b4b; border-radius: 8px; padding: 1.2rem; background: #1e1b4b; }
+        .card h3 { margin-top: 0; color: #a5b4fc; font-size: 1rem; }
+        .card p { font-size: 0.88rem; }
+        .cta-box { background: rgba(79,70,229,0.1); border: 1px solid #312e81; border-radius: 8px; padding: 1.5rem; margin: 2rem 0; text-align: center; }
+        .cta-box a.btn { display: inline-block; background: #4f46e5; color: #fff; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; margin-top: 0.5rem; }
+        .cta-box a.btn:hover { background: #4338ca; text-decoration: none; }
+        .footer { border-top: 1px solid #1e1b4b; padding: 2rem 1.5rem; text-align: center; color: #475569; font-size: 0.85rem; margin-top: 3rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        th { padding: 0.5rem; text-align: left; border-bottom: 2px solid #312e81; color: #e2e8f0; }
+        td { padding: 0.5rem; border-bottom: 1px solid #1e1b4b; }
+        .note { background: rgba(79,70,229,0.1); border-left: 4px solid #4f46e5; padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+        @media (max-width: 600px) {
+            .header { padding: 2rem 1rem; }
+            .header h1 { font-size: 1.5rem; }
+            .container { padding: 1.5rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="max-width:860px;margin:0 auto;">
+            <h1>QuAIGC Developer Documentation</h1>
+            <p>Human-style text processing platform. Transform AI-generated content into authentic, naturally written text that reads like it was crafted by a human.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <span class="badge">API v2.0</span>
+
+        <h2>What is QuAIGC?</h2>
+        <p>去AIGC (QuAIGC) specializes in transforming AI-generated text into authentic human-style writing. Unlike generic rewriting tools, QuAIGC focuses on naturalness, introducing human writing patterns such as varied sentence rhythm, colloquial expressions, and organic imperfections that characterize genuine human writing. Visit <a href="https://quaigc.com">quaigc.com</a> to try the platform.</p>
+
+        <div class="note">
+            <strong>Philosophy:</strong> QuAIGC does not promise detection bypass. Instead, it focuses on genuinely improving text to read naturally, the way a human would write it. The result is content that feels authentic because it <em>is</em> authentic in style.
+        </div>
+
+        <h2>Core Capabilities</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Humanization Engine</h3>
+                <p>Proprietary algorithms that inject natural human writing patterns: varied rhythm, organic transitions, and authentic voice while preserving core meaning.</p>
+            </div>
+            <div class="card">
+                <h3>Naturalness Scoring</h3>
+                <p>Proprietary scoring model that evaluates how human-like a text reads. Get detailed feedback on which sections need improvement.</p>
+            </div>
+            <div class="card">
+                <h3>Style Transfer</h3>
+                <p>Match specific writing personas: academic researcher, blog writer, journalist, technical author. Each style has been trained on authentic human samples.</p>
+            </div>
+            <div class="card">
+                <h3>Rhythm Analysis</h3>
+                <p>Detect and fix monotonous sentence patterns. Human writing has natural cadence variation that AI text typically lacks.</p>
+            </div>
+        </div>
+
+        <h2>Quick Start</h2>
+        <p>Sign up at <a href="https://quaigc.com">quaigc.com</a> to get your API credentials and access the interactive playground.</p>
+
+        <h3>Installation</h3>
+<pre><code>pip install quaigc</code></pre>
+
+        <h3>Humanize Text</h3>
+<pre><code><span style="color:#89b4fa">from</span> quaigc <span style="color:#89b4fa">import</span> QuAIGCClient
+
+client = QuAIGCClient(api_key=<span style="color:#a6e3a1">"your-api-key"</span>)
+
+<span style="color:#6c7086"># Transform AI text to human style</span>
+result = client.humanize(
+    text=<span style="color:#a6e3a1">"AI-generated text to humanize..."</span>,
+    style=<span style="color:#a6e3a1">"academic"</span>,       <span style="color:#6c7086"># academic, casual, journalistic, technical</span>
+    intensity=<span style="color:#a6e3a1">"moderate"</span>    <span style="color:#6c7086"># light, moderate, deep</span>
+)
+
+print(result.humanized_text)
+print(f<span style="color:#a6e3a1">"Naturalness: {result.naturalness_score}/100"</span>)</code></pre>
+
+        <h3>Naturalness Analysis</h3>
+<pre><code><span style="color:#6c7086"># Score text naturalness without modifying it</span>
+analysis = client.analyze_naturalness(
+    text=<span style="color:#a6e3a1">"Text to evaluate..."</span>
+)
+
+print(f<span style="color:#a6e3a1">"Overall naturalness: {analysis.score}/100"</span>)
+<span style="color:#89b4fa">for</span> issue <span style="color:#89b4fa">in</span> analysis.issues:
+    print(f<span style="color:#a6e3a1">"  - {issue.type}: {issue.description}"</span>)
+    print(f<span style="color:#a6e3a1">"    Affected: '{issue.text_segment}'"</span>)</code></pre>
+
+        <h2>API Reference</h2>
+        <table>
+            <thead>
+                <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/humanize</span></td><td>Humanize AI-generated text</td></tr>
+                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/naturalness</span></td><td>Score text naturalness</td></tr>
+                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/rhythm</span></td><td>Analyze writing rhythm</td></tr>
+                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/style-transfer</span></td><td>Apply writing style</td></tr>
+                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/batch</span></td><td>Batch humanization</td></tr>
+            </tbody>
+        </table>
+
+        <h2>Response Example</h2>
+<pre><code>{
+  <span style="color:#a6e3a1">"status"</span>: <span style="color:#a6e3a1">"success"</span>,
+  <span style="color:#a6e3a1">"data"</span>: {
+    <span style="color:#a6e3a1">"humanized_text"</span>: <span style="color:#a6e3a1">"The transformed text..."</span>,
+    <span style="color:#a6e3a1">"naturalness_score"</span>: <span style="color:#fab387">84</span>,
+    <span style="color:#a6e3a1">"changes_made"</span>: <span style="color:#fab387">12</span>,
+    <span style="color:#a6e3a1">"rhythm_variance"</span>: <span style="color:#fab387">0.73</span>,
+    <span style="color:#a6e3a1">"style_match"</span>: <span style="color:#fab387">0.91</span>
+  }
+}</code></pre>
+
+        <div class="cta-box">
+            <p style="font-size:1rem;color:#f1f5f9;font-weight:500;">Make your content authentically human</p>
+            <p style="font-size:0.9rem;color:#94a3b8;">Start with the free tier. No commitment, no credit card.</p>
+            <a class="btn" href="https://quaigc.com">Try QuAIGC at quaigc.com</a>
+        </div>
+
+        <h2>Why QuAIGC?</h2>
+        <ul>
+            <li><strong>Authenticity-first approach:</strong> Focus on genuine writing quality, not detection evasion</li>
+            <li><strong>Style diversity:</strong> Multiple writing personas trained on real human samples</li>
+            <li><strong>Rhythm intelligence:</strong> Unique sentence rhythm analysis and correction</li>
+            <li><strong>Bilingual support:</strong> Native Chinese and English processing</li>
+        </ul>
+
+        <h2>Resources & Support</h2>
+        <p>Full documentation, usage guides, and support available at <a href="https://quaigc.com">quaigc.com</a>. Join the developer community to share feedback and best practices.</p>
+    </div>
+
+    <div class="footer">
+        <p>QuAIGC Developer Documentation &middot; <a href="https://quaigc.com">quaigc.com</a></p>
+    </div>
+</body>
+</html>
