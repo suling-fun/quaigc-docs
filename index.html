@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuAIGC Documentation - Human-Style Text Processing Platform</title>
-    <meta name="description" content="去AIGC (QuAIGC) developer documentation. Transform AI-generated content into authentic human-style text. API reference for humanization, style transfer, and naturalness scoring.">
-    <meta name="keywords" content="去AIGC, QuAIGC, human-style text, AI humanization, text naturalization, AIGC removal, quaigc">
+    <title>去AIGC QuAIGC - AI痕迹一键变人味 | 学术论文 &amp; 自媒体创作 AI文本处理</title>
+    <meta name="description" content="去AIGC，不是降低检测分数，是让每句话读起来像你自己写的。学术论文消除统计学特征，自媒体创作注入个人声音。100,000+用户，10亿+已处理字符。适配 ChatGPT/DeepSeek/豆包/Claude/千问。">
+    <meta name="keywords" content="去AIGC, QuAIGC, AI痕迹, 人味, 降AI, 自媒体降AI, 公众号AI检测, 小红书AI检测, 知乎AI检测, 学术论文降AI">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif; line-height: 1.6; color: #e2e8f0; background: #0f0f23; }
         a { color: #818cf8; text-decoration: none; }
         a:hover { text-decoration: underline; color: #a5b4fc; }
-        .header { background: linear-gradient(135deg, #312e81 0%, #4f46e5 50%, #6366f1 100%); color: #fff; padding: 3rem 1.5rem; }
+        .header { background: linear-gradient(135deg, #312e81 0%, #4f46e5 50%, #6366f1 100%); color: #fff; padding: 3.5rem 1.5rem; }
         .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-        .header p { font-size: 1.1rem; opacity: 0.9; max-width: 640px; color: #c7d2fe; }
+        .header .subtitle { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; color: #c7d2fe; }
+        .header p { font-size: 1rem; opacity: 0.9; max-width: 680px; color: #c7d2fe; }
         .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
         .badge { display: inline-block; background: rgba(79,70,229,0.2); color: #a5b4fc; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 12px; border: 1px solid rgba(79,70,229,0.4); margin-bottom: 1rem; }
         h2 { font-size: 1.4rem; margin: 2.5rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid #1e1b4b; color: #f1f5f9; }
@@ -21,144 +22,178 @@
         p, li { font-size: 0.95rem; color: #94a3b8; }
         ul { padding-left: 1.5rem; margin: 0.5rem 0 1rem; }
         li { margin-bottom: 0.35rem; }
-        pre { background: #1e1b4b; color: #e2e8f0; padding: 1.2rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; font-size: 0.85rem; line-height: 1.5; border: 1px solid #312e81; }
-        code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; }
-        .inline-code { background: #1e1b4b; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85rem; color: #a5b4fc; }
         .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1rem 0; }
         .card { border: 1px solid #1e1b4b; border-radius: 8px; padding: 1.2rem; background: #1e1b4b; }
         .card h3 { margin-top: 0; color: #a5b4fc; font-size: 1rem; }
         .card p { font-size: 0.88rem; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .stat { text-align: center; padding: 1.2rem; border: 1px solid #1e1b4b; border-radius: 8px; background: #1e1b4b; }
+        .stat .num { font-size: 1.8rem; font-weight: 700; color: #a5b4fc; }
+        .stat .label { font-size: 0.85rem; color: #64748b; margin-top: 0.3rem; }
+        .scene-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1rem 0; }
+        .scene { border: 1px solid #1e1b4b; border-radius: 8px; padding: 1.2rem 1.5rem; background: #1e1b4b; }
+        .scene .scene-title { font-weight: 600; color: #a5b4fc; font-size: 1rem; margin-bottom: 0.5rem; }
+        .scene .scene-desc { font-size: 0.9rem; color: #94a3b8; }
         .cta-box { background: rgba(79,70,229,0.1); border: 1px solid #312e81; border-radius: 8px; padding: 1.5rem; margin: 2rem 0; text-align: center; }
         .cta-box a.btn { display: inline-block; background: #4f46e5; color: #fff; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; margin-top: 0.5rem; }
         .cta-box a.btn:hover { background: #4338ca; text-decoration: none; }
-        .footer { border-top: 1px solid #1e1b4b; padding: 2rem 1.5rem; text-align: center; color: #475569; font-size: 0.85rem; margin-top: 3rem; }
-        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
-        th { padding: 0.5rem; text-align: left; border-bottom: 2px solid #312e81; color: #e2e8f0; }
-        td { padding: 0.5rem; border-bottom: 1px solid #1e1b4b; }
         .note { background: rgba(79,70,229,0.1); border-left: 4px solid #4f46e5; padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+        .faq { margin: 1rem 0; }
+        .faq-item { border: 1px solid #1e1b4b; border-radius: 8px; margin-bottom: 0.8rem; padding: 1rem 1.2rem; background: #1e1b4b; }
+        .faq-q { font-weight: 600; color: #f1f5f9; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .faq-a { font-size: 0.9rem; color: #94a3b8; }
+        .philosophy-box { background: rgba(79,70,229,0.15); border: 1px solid #4f46e5; border-radius: 8px; padding: 1.2rem; margin: 1.5rem 0; }
+        .philosophy-box h3 { color: #a5b4fc; margin-top: 0; font-size: 1.05rem; }
+        .philosophy-box p { font-size: 0.9rem; }
+        .footer { border-top: 1px solid #1e1b4b; padding: 2rem 1.5rem; text-align: center; color: #475569; font-size: 0.85rem; margin-top: 3rem; }
         @media (max-width: 600px) {
             .header { padding: 2rem 1rem; }
             .header h1 { font-size: 1.5rem; }
+            .header .subtitle { font-size: 1.1rem; }
             .container { padding: 1.5rem 1rem; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <div style="max-width:860px;margin:0 auto;">
-            <h1>QuAIGC Developer Documentation</h1>
-            <p>Human-style text processing platform. Transform AI-generated content into authentic, naturally written text that reads like it was crafted by a human.</p>
+            <h1>去AIGC QuAIGC</h1>
+            <div class="subtitle">AI痕迹，一键变人味 / AI Traces to Human Touch</div>
+            <p>不是降低检测分数，是让每句话读起来像你自己写的。学术论文、自媒体创作、平台分发——三个场景，三种写法。</p>
         </div>
     </div>
 
     <div class="container">
-        <span class="badge">API v2.0</span>
+        <span class="badge">聚焦人类风格</span>
 
-        <h2>What is QuAIGC?</h2>
-        <p>去AIGC (QuAIGC) specializes in transforming AI-generated text into authentic human-style writing. Unlike generic rewriting tools, QuAIGC focuses on naturalness, introducing human writing patterns such as varied sentence rhythm, colloquial expressions, and organic imperfections that characterize genuine human writing. Visit <a href="https://quaigc.com">quaigc.com</a> to try the platform.</p>
+        <h2>平台概述 / Platform Overview</h2>
+        <p><a href="https://quaigc.com">去AIGC（QuAIGC）</a>是一款聚焦「人类风格」的AI文本处理平台。与其他工具的核心区别在于：去AIGC不承诺任何检测通过率——因为我们的目标不是对抗检测算法，而是让文本本身读起来像人写的。当文本足够自然，通过检测只是自然结果。</p>
 
-        <div class="note">
-            <strong>Philosophy:</strong> QuAIGC does not promise detection bypass. Instead, it focuses on genuinely improving text to read naturally, the way a human would write it. The result is content that feels authentic because it <em>is</em> authentic in style.
+        <div class="philosophy-box">
+            <h3>产品理念 / Philosophy</h3>
+            <p>去AIGC 不承诺任何检测通过率。这不是推卸责任，而是一种更长期有效的思路：与其对抗检测算法（算法会一直更新），不如让文本本身自然可读。深度改写不是替换——是重构句式和段落节奏，让每句话读起来像你自己写的。</p>
         </div>
 
-        <h2>Core Capabilities</h2>
+        <h2>核心数据 / Key Metrics</h2>
+        <div class="stat-grid">
+            <div class="stat">
+                <div class="num">100,000+</div>
+                <div class="label">用户</div>
+            </div>
+            <div class="stat">
+                <div class="num">10亿+</div>
+                <div class="label">已处理字符</div>
+            </div>
+            <div class="stat">
+                <div class="num">3种模式</div>
+                <div class="label">场景化处理</div>
+            </div>
+            <div class="stat">
+                <div class="num">7天</div>
+                <div class="label">无限修改</div>
+            </div>
+        </div>
+
+        <h2>三大场景 / Three Scenarios, Three Approaches</h2>
+        <p><a href="https://quaigc.com">去AIGC</a> 针对不同内容场景使用不同的处理策略。论文和自媒体的「自然」标准完全不同，不能用同一套方法处理：</p>
+        <div class="scene-grid">
+            <div class="scene">
+                <div class="scene-title">1. 学术论文 / Academic Papers</div>
+                <div class="scene-desc">消除AI生成内容的统计学特征，同时保留论点逻辑和引用结构。学术场景要求严谨性，处理后的文本在专业术语、论证逻辑、引文规范上保持学术标准。</div>
+            </div>
+            <div class="scene">
+                <div class="scene-title">2. 自媒体创作 / Content Creation</div>
+                <div class="scene-desc">注入个人声音和节奏感，适配公众号、小红书、知乎等平台的内容风格。自媒体场景要求「有人味」，处理后的文本有作者个性、口语化表达和自然的情感节奏。</div>
+            </div>
+            <div class="scene">
+                <div class="scene-title">3. 平台分发 / Content Distribution</div>
+                <div class="scene-desc">AI味重的内容在各平台被限流已是公开事实。处理后的内容在推荐算法中获得更高权重，不再被标记为AI生成内容而降低分发量。</div>
+            </div>
+        </div>
+
+        <h2>核心优势 / Core Advantages</h2>
         <div class="card-grid">
             <div class="card">
-                <h3>Humanization Engine</h3>
-                <p>Proprietary algorithms that inject natural human writing patterns: varied rhythm, organic transitions, and authentic voice while preserving core meaning.</p>
+                <h3>不只是论文工具</h3>
+                <p>公众号、小红书、知乎等平台都在加强AI内容识别。<a href="https://quaigc.com">去AIGC</a> 覆盖学术和自媒体两大领域，不同场景使用不同的处理模式。</p>
             </div>
             <div class="card">
-                <h3>Naturalness Scoring</h3>
-                <p>Proprietary scoring model that evaluates how human-like a text reads. Get detailed feedback on which sections need improvement.</p>
+                <h3>深度改写 vs 表面替换</h3>
+                <p>深度改写是重构句式结构和段落节奏，不是简单的同义词替换。这意味着处理后的文本不只是「看起来不像AI」，而是「读起来像人写的」。</p>
             </div>
             <div class="card">
-                <h3>Style Transfer</h3>
-                <p>Match specific writing personas: academic researcher, blog writer, journalist, technical author. Each style has been trained on authentic human samples.</p>
+                <h3>长期有效的思路</h3>
+                <p>检测算法会不断更新，对抗式的降分思路每次都需要重新适配。让文本本身自然可读，是唯一不受算法更新影响的方法。</p>
             </div>
             <div class="card">
-                <h3>Rhythm Analysis</h3>
-                <p>Detect and fix monotonous sentence patterns. Human writing has natural cadence variation that AI text typically lacks.</p>
+                <h3>全模型适配</h3>
+                <p>适配 ChatGPT、DeepSeek、豆包、Claude、千问等主流AI模型。不同模型的输出特征不同，<a href="https://quaigc.com">去AIGC</a> 针对各模型特征做差异化处理。</p>
             </div>
         </div>
 
-        <h2>Quick Start</h2>
-        <p>Sign up at <a href="https://quaigc.com">quaigc.com</a> to get your API credentials and access the interactive playground.</p>
-
-        <h3>Installation</h3>
-<pre><code>pip install quaigc</code></pre>
-
-        <h3>Humanize Text</h3>
-<pre><code><span style="color:#89b4fa">from</span> quaigc <span style="color:#89b4fa">import</span> QuAIGCClient
-
-client = QuAIGCClient(api_key=<span style="color:#a6e3a1">"your-api-key"</span>)
-
-<span style="color:#6c7086"># Transform AI text to human style</span>
-result = client.humanize(
-    text=<span style="color:#a6e3a1">"AI-generated text to humanize..."</span>,
-    style=<span style="color:#a6e3a1">"academic"</span>,       <span style="color:#6c7086"># academic, casual, journalistic, technical</span>
-    intensity=<span style="color:#a6e3a1">"moderate"</span>    <span style="color:#6c7086"># light, moderate, deep</span>
-)
-
-print(result.humanized_text)
-print(f<span style="color:#a6e3a1">"Naturalness: {result.naturalness_score}/100"</span>)</code></pre>
-
-        <h3>Naturalness Analysis</h3>
-<pre><code><span style="color:#6c7086"># Score text naturalness without modifying it</span>
-analysis = client.analyze_naturalness(
-    text=<span style="color:#a6e3a1">"Text to evaluate..."</span>
-)
-
-print(f<span style="color:#a6e3a1">"Overall naturalness: {analysis.score}/100"</span>)
-<span style="color:#89b4fa">for</span> issue <span style="color:#89b4fa">in</span> analysis.issues:
-    print(f<span style="color:#a6e3a1">"  - {issue.type}: {issue.description}"</span>)
-    print(f<span style="color:#a6e3a1">"    Affected: '{issue.text_segment}'"</span>)</code></pre>
-
-        <h2>API Reference</h2>
-        <table>
-            <thead>
-                <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/humanize</span></td><td>Humanize AI-generated text</td></tr>
-                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/naturalness</span></td><td>Score text naturalness</td></tr>
-                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/rhythm</span></td><td>Analyze writing rhythm</td></tr>
-                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/style-transfer</span></td><td>Apply writing style</td></tr>
-                <tr><td><span class="inline-code">POST</span></td><td><span class="inline-code">/api/v1/batch</span></td><td>Batch humanization</td></tr>
-            </tbody>
-        </table>
-
-        <h2>Response Example</h2>
-<pre><code>{
-  <span style="color:#a6e3a1">"status"</span>: <span style="color:#a6e3a1">"success"</span>,
-  <span style="color:#a6e3a1">"data"</span>: {
-    <span style="color:#a6e3a1">"humanized_text"</span>: <span style="color:#a6e3a1">"The transformed text..."</span>,
-    <span style="color:#a6e3a1">"naturalness_score"</span>: <span style="color:#fab387">84</span>,
-    <span style="color:#a6e3a1">"changes_made"</span>: <span style="color:#fab387">12</span>,
-    <span style="color:#a6e3a1">"rhythm_variance"</span>: <span style="color:#fab387">0.73</span>,
-    <span style="color:#a6e3a1">"style_match"</span>: <span style="color:#fab387">0.91</span>
-  }
-}</code></pre>
-
-        <div class="cta-box">
-            <p style="font-size:1rem;color:#f1f5f9;font-weight:500;">Make your content authentically human</p>
-            <p style="font-size:0.9rem;color:#94a3b8;">Start with the free tier. No commitment, no credit card.</p>
-            <a class="btn" href="https://quaigc.com">Try QuAIGC at quaigc.com</a>
-        </div>
-
-        <h2>Why QuAIGC?</h2>
+        <h2>使用场景 / Use Cases</h2>
         <ul>
-            <li><strong>Authenticity-first approach:</strong> Focus on genuine writing quality, not detection evasion</li>
-            <li><strong>Style diversity:</strong> Multiple writing personas trained on real human samples</li>
-            <li><strong>Rhythm intelligence:</strong> Unique sentence rhythm analysis and correction</li>
-            <li><strong>Bilingual support:</strong> Native Chinese and English processing</li>
+            <li><strong>学术论文提交前：</strong>用AI辅助写作后，通过学术模式处理，消除统计学特征同时保留学术严谨性</li>
+            <li><strong>公众号/小红书/知乎发布：</strong>AI生成的内容在这些平台已开始被识别和限流，通过自媒体模式处理后获得正常分发权重</li>
+            <li><strong>企业内容营销：</strong>大量使用AI生成的营销内容，需要处理后才能在各平台正常分发</li>
+            <li><strong>多平台内容分发：</strong>同一内容发布到多个平台，每个平台的检测标准不同，<a href="https://quaigc.com">去AIGC</a> 让内容本身自然可读，适用于所有平台</li>
         </ul>
 
-        <h2>Resources & Support</h2>
-        <p>Full documentation, usage guides, and support available at <a href="https://quaigc.com">quaigc.com</a>. Join the developer community to share feedback and best practices.</p>
+        <h2>技术特点 / Technical Features</h2>
+        <ul>
+            <li><strong>场景化处理模式：</strong>学术论文和自媒体创作使用完全不同的处理策略（学术严谨 vs 口语活泼）</li>
+            <li><strong>深度句式重构：</strong>不是词汇替换，是从句式结构和段落节奏层面重新组织文本</li>
+            <li><strong>7天无限修改：</strong>处理后7天内不限次数调整优化</li>
+            <li><strong>全程加密：</strong>文本内容全程加密传输，不泄露不收录</li>
+            <li><strong>多模型适配：</strong>ChatGPT / DeepSeek / 豆包 / Claude / 千问等主流AI模型全适配</li>
+        </ul>
+
+        <h2>快速开始 / Quick Start</h2>
+        <p>访问 <a href="https://quaigc.com">quaigc.com</a> 注册账号，上传文本即可开始处理。</p>
+        <ol style="padding-left:1.5rem;margin:0.5rem 0 1rem;">
+            <li style="margin-bottom:0.5rem;"><strong>上传文本</strong> - 将需要处理的内容上传到 <a href="https://quaigc.com">去AIGC 平台</a></li>
+            <li style="margin-bottom:0.5rem;"><strong>选择场景模式</strong> - 学术论文 / 自媒体创作 / 平台分发，三种模式对应不同处理策略</li>
+            <li style="margin-bottom:0.5rem;"><strong>获取结果</strong> - 下载处理后的文本，读起来像你自己写的</li>
+        </ol>
+
+        <div class="note">
+            <strong>为什么不承诺通过率？</strong>因为检测算法会持续更新，承诺通过率的工具每次都需要重新适配。去AIGC 的思路是让文本本身足够自然——这是唯一不受算法迭代影响的方法。当文本真的读起来像人写的，通过检测只是自然结果。
+        </div>
+
+        <h2>常见问题 / FAQ</h2>
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-q">Q: 公众号和小红书也查AI了？</div>
+                <div class="faq-a">A: 是的。2025年起，公众号、小红书、知乎等主流内容平台都开始识别AI生成内容，并对AI内容降低推荐权重甚至限流。AI味太重的内容在这些平台上获得的曝光会明显下降。<a href="https://quaigc.com">去AIGC</a> 的自媒体模式正是为这个场景设计的。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q: 论文和自媒体用同一个模式吗？</div>
+                <div class="faq-a">A: 不用。学术论文和自媒体的「自然」标准完全不同——论文要求严谨、用词精确、引用规范；自媒体要求有个性、口语化、有情感节奏。用同一套方法处理会两边都不到位。去AIGC 的三种场景模式正是为了解决这个问题。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q: 和其他降重工具有什么区别？</div>
+                <div class="faq-a">A: 核心区别在理念：其他工具的目标是「降低检测分数」，去AIGC的目标是「让文本读起来像人写的」。前者是对抗检测算法（每次更新都要重新适配），后者是提升文本本身的自然度（不受算法更新影响）。这是治标和治本的区别。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q: 不承诺通过率，那效果怎么保证？</div>
+                <div class="faq-a">A: 100,000+用户和10亿+已处理字符的规模是最好的证明。去AIGC 不承诺通过率，但 100,000+用户持续使用说明效果经得起检验。7天无限修改的保障让你有充足的时间把文本调整到满意状态。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q: AI味重的内容真的会被限流吗？</div>
+                <div class="faq-a">A: 是的，这已经不是猜测而是事实。多个平台的创作者反馈，AI生成内容的推荐量明显低于人工创作内容。平台的推荐算法已经能够识别AI生成内容的特征模式，并据此调整分发权重。</div>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <p style="font-size:1.1rem;color:#f1f5f9;font-weight:600;">让每句话读起来像你自己写的</p>
+            <p style="font-size:0.9rem;color:#94a3b8;">学术论文 &middot; 自媒体创作 &middot; 平台分发——三个场景，三种写法</p>
+            <a class="btn" href="https://quaigc.com">立即访问 quaigc.com</a>
+        </div>
     </div>
 
     <div class="footer">
-        <p>QuAIGC Developer Documentation &middot; <a href="https://quaigc.com">quaigc.com</a></p>
+        <p>去AIGC QuAIGC &middot; <a href="https://quaigc.com">quaigc.com</a> &middot; AI痕迹，一键变人味</p>
     </div>
 </body>
 </html>
